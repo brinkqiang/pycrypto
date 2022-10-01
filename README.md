@@ -18,5 +18,15 @@ Copyright (c) 2013-2018 brinkqiang (brink.qiang@gmail.com)
 ## Intro
 
 - dmpymodule
+```python
+# -*- coding: utf-8 -*-
+import pycrypto
 
+rc = pycrypto.CDMRC()
+rc.SetKey("123456")
+enbuf = rc.Encrypt("hello world")
+print(enbuf)
+debuf = rc.Decrypt(enbuf)
+print(debuf)
+```
 ## Thanks
