@@ -8,19 +8,7 @@
 #include "pycrypto.pybind11.h"
 
 
-#include "object.h"
-
-#include "creature.h"
-
-#include "player.h"
-
-#include "common/types.h"
-
-#include "common/enum.h"
-
-#include "common/macros.h"
-
-#include "common/struct.h"
+#include "dmrc.hpp"
 
 
 #include <pybind11/pybind11.h>
@@ -29,45 +17,12 @@
 
 PYBIND11_MODULE(pycrypto, m) {
 
-    pybind11::class_<CObject>(m, "CObject")
+    pybind11::class_<CDMRC>(m, "CDMRC")
     .def(pybind11::init<>())
-    .def("GetObjID", &CObject::GetObjID)
-    .def("SetObjID", &CObject::SetObjID);
-
-    pybind11::class_<CCreature, CObject>(m, "CCreature")
-    .def(pybind11::init<>())
-    .def("GetHP", &CCreature::GetHP)
-    .def("SetHP", &CCreature::SetHP)
-    .def("AddHP", &CCreature::AddHP)
-    .def("GetMP", &CCreature::GetMP)
-    .def("SetMP", &CCreature::SetMP)
-    .def("AddMP", &CCreature::AddMP);
-
-    m.def("GNextID", &GNextID);
-    pybind11::class_<CPlayer, CCreature, CObject>(m, "CPlayer")
-    .def(pybind11::init<>())
-    .def(pybind11::init<int,const std::string&>())
-    .def(pybind11::init<const std::string&>())
-    .def("Init", &CPlayer::Init)
-    .def("OnChange", &CPlayer::OnChange)
-    .def("NotChange", &CPlayer::NotChange)
-    .def("SystemChange", &CPlayer::SystemChange)
-    .def("LoadFromDB", &CPlayer::LoadFromDB)
-    .def("SaveDB", &CPlayer::SaveDB)
-    .def("GetLevel", &CPlayer::GetLevel)
-    .def("GetName", &CPlayer::GetName);
-
-    pybind11::class_<STaskInfo>(m, "STaskInfo")
-    .def(pybind11::init<>())
-    .def_readwrite("nTaskID", &STaskInfo::nTaskID)
-    .def_readwrite("nTaskState", &STaskInfo::nTaskState)
-    .def_readwrite("nTaskCondition", &STaskInfo::nTaskCondition);
-
-    pybind11::class_<SPos>(m, "SPos")
-    .def(pybind11::init<>())
-    .def(pybind11::init<int,int,int>())
-    .def_readwrite("x", &SPos::x)
-    .def_readwrite("y", &SPos::y)
-    .def_readwrite("z", &SPos::z);
+    .def("SetKey", &CDMRC::SetKey)
+    .def("SetEncryptKey", &CDMRC::SetEncryptKey)
+    .def("SetDecryptKey", &CDMRC::SetDecryptKey)
+    .def("Encrypt", &CDMRC::Encrypt)
+    .def("Decrypt", &CDMRC::Decrypt);
 
 }
