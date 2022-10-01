@@ -29,7 +29,7 @@
 #include <string>
 
 #include "dmrc.h"
-
+#include "pybind11/pybind11.h"
 class CDMRC
 {
 public:
@@ -60,20 +60,20 @@ public:
         arc4_setup(&m_oDecryptContext, (const unsigned char*)m_strDecryptKey.c_str(), (unsigned int)m_strDecryptKey.size());
     }
 
-    std::string Encrypt(const std::string& strBuf)
+    pybind11::bytes Encrypt(const std::string& strBuf)
     {
         std::string strOut;
         strOut.resize(strBuf.size());
         arc4_crypt(&m_oEncryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strOut.data());
-        return std::move(strOut);
+        return pybind11::bytes(strOut);
     }
 
-    std::string Decrypt(const std::string& strBuf)
+    pybind11::bytes Decrypt(const std::string& strBuf)
     {
         std::string strOut;
         strOut.resize(strBuf.size());
         arc4_crypt(&m_oDecryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strOut.data());
-        return std::move(strOut);
+        return pybind11::bytes(strOut);
     }
     // export_end
 
