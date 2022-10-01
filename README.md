@@ -29,4 +29,11 @@ print(enbuf)
 debuf = rc.Decrypt(enbuf)
 print(debuf)
 ```
+
+output
+```
+皹=钄改
+hello world
+```
+
 ## Thanks
