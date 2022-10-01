@@ -32,9 +32,9 @@ TEST_F(frame_dmpytest, dmpytest_pycrypto)
     auto Encrypt = obj.attr("Encrypt");
     auto Decrypt = obj.attr("Decrypt");
 
-    SetKey("123456");
+    obj.attr("SetKey")("123456");
 
-    auto enbuf = Encrypt("hello world");
+    auto enbuf = obj.attr("Encrypt")("hello world").cast<std::string>();
 
-    auto debuf = Decrypt(enbuf);
+    auto debuf = obj.attr("Decrypt")(enbuf).cast<std::string>();
 }

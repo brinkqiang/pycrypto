@@ -62,14 +62,18 @@ public:
 
     std::string Encrypt(const std::string& strBuf)
     {
-        arc4_crypt(&m_oEncryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strBuf.data());
-        return strBuf;
+        std::string strOut;
+        strOut.resize(strBuf.size());
+        arc4_crypt(&m_oEncryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strOut.data());
+        return std::move(strOut);
     }
 
     std::string Decrypt(const std::string& strBuf)
     {
-        arc4_crypt(&m_oDecryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strBuf.data());
-        return strBuf;
+        std::string strOut;
+        strOut.resize(strBuf.size());
+        arc4_crypt(&m_oDecryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strOut.data());
+        return std::move(strOut);
     }
     // export_end
 
@@ -79,24 +83,25 @@ public:
         return pBuf;
     }
 
-    unsigned char* Encryptc(unsigned char* pBuf, size_t len)
+    char* Decryptc(char* pBuf, size_t len)
+    {
+        arc4_crypt(&m_oDecryptContext, len, (const unsigned char*)pBuf, (unsigned char*)pBuf);
+        return pBuf;
+    }
+
+    unsigned char* Encryptcu(unsigned char* pBuf, size_t len)
     {
         arc4_crypt(&m_oEncryptContext, len, pBuf, pBuf);
         return pBuf;
     }
 
 
-    unsigned char* Decryptc(unsigned char* pBuf, size_t len)
+    unsigned char* Decryptcu(unsigned char* pBuf, size_t len)
     {
         arc4_crypt(&m_oDecryptContext, len, pBuf, pBuf);
         return pBuf;
     }
 
-    char* Decryptc(char* pBuf, size_t len)
-    {
-        arc4_crypt(&m_oDecryptContext, len, (const unsigned char*)pBuf, (unsigned char*)pBuf);
-        return pBuf;
-    }
 
 private:
     std::string m_strEncryptKey;
