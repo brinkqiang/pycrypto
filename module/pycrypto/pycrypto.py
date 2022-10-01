@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import pycrypto
 
-obj = pycrypto.CPlayer(1, "zhangsan")
-
-obj.Init()
-print("Name=", obj.GetName(), "Level=", obj.GetLevel(), "HP=", obj.GetHP())
-obj.AddHP(100)
-print("Name=", obj.GetName(), "Level=", obj.GetLevel(), "HP=", obj.GetHP())
+rc = pycrypto.CDMRC()
+rc.SetKey("123456")
+enbuf = rc.Encrypt("hello world")
+print(enbuf)
+debuf = rc.Decrypt(enbuf)
+print(debuf)
