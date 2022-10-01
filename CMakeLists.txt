@@ -29,7 +29,7 @@ ModuleInclude("dmformat" "thirdparty/dmformat")
 ModuleImport("dmpybind11" "thirdparty/dmpybind11")
 ModuleImport("dmtest" "thirdparty/dmtest")
 
-PyModuleImport("module" "dmtest;pybind11::module")
+PyModuleImport("module" "pybind11::module")
 
 ExeImport("test" "dmtest;pycrypto;pybind11::module")
 
