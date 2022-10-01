@@ -1,4 +1,4 @@
-# dmpymodule
+# pycrypto
 
 Copyright (c) 2013-2018 brinkqiang (brink.qiang@gmail.com)
 
@@ -8,16 +8,16 @@ Copyright (c) 2013-2018 brinkqiang (brink.qiang@gmail.com)
 | :---------------: | :----------------: | :-----------------: |
 | ![lin-badge]      | ![mac-badge]       | ![win-badge]        |
 
-[lin-badge]: https://github.com/brinkqiang/dmpymodule/workflows/linux/badge.svg "linux build status"
-[lin-link]:  https://github.com/brinkqiang/dmpymodule/actions/workflows/linux.yml "linux build status"
-[mac-badge]: https://github.com/brinkqiang/dmpymodule/workflows/mac/badge.svg "mac build status"
-[mac-link]:  https://github.com/brinkqiang/dmpymodule/actions/workflows/mac.yml "mac build status"
-[win-badge]: https://github.com/brinkqiang/dmpymodule/workflows/win/badge.svg "win build status"
-[win-link]:  https://github.com/brinkqiang/dmpymodule/actions/workflows/win.yml "win build status"
+[lin-badge]: https://github.com/brinkqiang/pycrypto/workflows/linux/badge.svg "linux build status"
+[lin-link]:  https://github.com/brinkqiang/pycrypto/actions/workflows/linux.yml "linux build status"
+[mac-badge]: https://github.com/brinkqiang/pycrypto/workflows/mac/badge.svg "mac build status"
+[mac-link]:  https://github.com/brinkqiang/pycrypto/actions/workflows/mac.yml "mac build status"
+[win-badge]: https://github.com/brinkqiang/pycrypto/workflows/win/badge.svg "win build status"
+[win-link]:  https://github.com/brinkqiang/pycrypto/actions/workflows/win.yml "win build status"
 
 ## Intro
 
-- dmpymodule
+- pycrypto
 ```python
 # -*- coding: utf-8 -*-
 import pycrypto
