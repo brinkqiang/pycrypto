@@ -11,7 +11,7 @@ public:
     virtual void SetUp()
     {
         pycrypto = pybind11::module_::import("pycrypto");
-        obj = pycrypto.attr("CPlayer")(1, "zhangsan");
+        obj = pycrypto.attr("CDMRC")();
     }
     virtual void TearDown()
     {
@@ -28,34 +28,13 @@ protected:
 
 TEST_F(frame_dmpytest, dmpytest_pycrypto)
 {
-    auto GetName = obj.attr("GetName");
-    auto GetLevel = obj.attr("GetLevel");
-    auto GetHP = obj.attr("GetHP");
+    auto SetKey = obj.attr("SetKey");
+    auto Encrypt = obj.attr("Encrypt");
+    auto Decrypt = obj.attr("Decrypt");
 
-    obj.attr("Init")();
-    fmt::print("Name={} Level={} HP={}\n", GetName().cast<std::string>(), GetLevel().cast<int>(), GetHP().cast<int64_t>());
-    obj.attr("AddHP")(100);
-    fmt::print("Name={} Level={} HP={}\n", GetName().cast<std::string>(), GetLevel().cast<int>(), GetHP().cast<int64_t>());
-}
+    SetKey("123456");
 
-PYBIND11_EMBEDDED_MODULE(dmpymath, m) {
-    // `m` is a `py::module_` which is used to bind functions and classes
-    m.def("add", [](int a, int b) {
-        return a + b;
-        });
-}
+    auto enbuf = Encrypt("hello world");
 
-TEST_F(frame_dmpytest, dmpytest_perf)
-{
-    auto dmpymath = pybind11::module_::import("dmpymath");
-    auto add = dmpymath.attr("add");
-
-    uint64_t total = 0;
-    for (int i = 0; i < PERF_COUNT; i++)
-    {
-        int num = add(1, 2).cast<int>();
-        total += num;
-    }
-
-    fmt::print("count={} total={}\n", PERF_COUNT, total);
+    auto debuf = Decrypt(enbuf);
 }
