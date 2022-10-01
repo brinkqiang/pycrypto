@@ -16,6 +16,14 @@ SET(DMCONFIG_VERSION "${DMCONFIG_VERSION_MAJOR}.${DMCONFIG_VERSION_MINOR}.${DMCO
 
 MESSAGE(STATUS "VERSION: ${DMCONFIG_VERSION}")
 
+find_package(PythonInterp 2.7 REQUIRED)
+find_package(PythonLibs 2.7 REQUIRED)
+find_package(Python 2.7 REQUIRED OPTIONAL_COMPONENTS NumPy)
+
+if (PYTHONLIBS_FOUND)
+    include_directories(${PYTHON_INCLUDE_DIRS})
+    LINK_DIRECTORIES(${PYTHON_INCLUDE_DIRS}/../libs)
+endif ()
 ModuleInclude("dmformat" "thirdparty/dmformat")
 
 ModuleImport("dmpybind11" "thirdparty/dmpybind11")
