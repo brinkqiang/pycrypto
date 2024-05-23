@@ -60,11 +60,12 @@
 /* MD5 Class. */
 class CDMMD5 {
   public:
+    // export_begin  
     CDMMD5() {
         MD5Init ();
     }
     ~CDMMD5() {}
-
+    // export_end
     inline void MD5Update (unsigned char* input,unsigned int inputLen) {
         unsigned int i, index, partLen;
 
@@ -138,7 +139,7 @@ class CDMMD5 {
             format[i * 2 + 1] = Value2Hexdig(*p & 0xf);
         }
     }
-
+    // export_begin
     inline std::string GetMD5(const std::string& strData) {
         unsigned char format[33] = {0};
 
@@ -146,7 +147,7 @@ class CDMMD5 {
         MD5Format(format);
         return (char*)format;
     }
-
+    // export_end
     static inline char Value2Hexdig(unsigned char val) {
         char c = '0';
 
@@ -195,7 +196,11 @@ class CDMMD5 {
     }
 
     inline void MD5Transform (unsigned long int state[4], unsigned char block[64]) {
-        unsigned long int a = state[0], b = state[1], c = state[2], d = state[3], x[16];
+        unsigned long int a = state[0];
+        unsigned long int b = state[1];
+        unsigned long int c = state[2];
+        unsigned long int d = state[3];
+        unsigned long int x[16];
 
         Decode (x, block, 64);
 
@@ -320,6 +325,7 @@ class CDMMD5 {
             ((char*)output)[i] = (char)value;
         }
     }
+
 };
 
 #endif // __DMMD5_H_INCLUDE__

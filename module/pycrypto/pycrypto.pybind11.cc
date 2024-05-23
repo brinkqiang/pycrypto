@@ -10,6 +10,8 @@
 
 #include "dmrc.hpp"
 
+#include "dmmd5.h"
+
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -24,5 +26,9 @@ PYBIND11_MODULE(pycrypto, m) {
     .def("SetDecryptKey", &CDMRC::SetDecryptKey)
     .def("Encrypt", &CDMRC::Encrypt)
     .def("Decrypt", &CDMRC::Decrypt);
+
+    pybind11::class_<CDMMD5>(m, "CDMMD5")
+    .def(pybind11::init<>())
+    .def("GetMD5", &CDMMD5::GetMD5);
 
 }
