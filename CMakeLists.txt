@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.8)
 
 PROJECT(pycrypto)
 
@@ -16,9 +16,11 @@ SET(DMCONFIG_VERSION "${DMCONFIG_VERSION_MAJOR}.${DMCONFIG_VERSION_MINOR}.${DMCO
 
 MESSAGE(STATUS "VERSION: ${DMCONFIG_VERSION}")
 
-find_package(PythonInterp 2.7 REQUIRED)
-find_package(PythonLibs 2.7 REQUIRED)
-find_package(Python 2.7 REQUIRED OPTIONAL_COMPONENTS NumPy)
+SET(PYTHON_VERSION 3.10)
+
+find_package(PythonInterp ${PYTHON_VERSION} REQUIRED)
+find_package(PythonLibs ${PYTHON_VERSION} REQUIRED)
+find_package(Python ${PYTHON_VERSION} REQUIRED OPTIONAL_COMPONENTS NumPy)
 
 if (PYTHONLIBS_FOUND)
     include_directories(${PYTHON_INCLUDE_DIRS})
