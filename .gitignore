@@ -12,4 +12,3 @@ CTestTestfile.cmake
 /lib/*
 /build/*
 /.vscode/*
-/thirdparty/dmcppparser/src/dmcppparser_module/btyacc.exe
