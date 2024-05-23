@@ -28,12 +28,18 @@ enbuf = rc.Encrypt("hello world")
 print(enbuf)
 debuf = rc.Decrypt(enbuf)
 print(debuf)
+
+
+md5 = pycrypto.CDMMD5()
+print(md5.GetMD5("hello world"))
+
 ```
 
 output
 ```
 皹=钄改
 hello world
+5EB63BBBE01EEED093CB22BB8F5ACDC3
 ```
 
 ## Thanks
