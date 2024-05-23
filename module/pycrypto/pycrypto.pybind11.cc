@@ -12,6 +12,8 @@
 
 #include "dmmd5.h"
 
+#include "dmbase64.h"
+
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -30,5 +32,12 @@ PYBIND11_MODULE(pycrypto, m) {
     pybind11::class_<CDMMD5>(m, "CDMMD5")
     .def(pybind11::init<>())
     .def("GetMD5", &CDMMD5::GetMD5);
+
+    pybind11::class_<CDMBase64>(m, "CDMBase64")
+    .def(pybind11::init<>())
+    .def("Base64Encode", &CDMBase64::Base64Encode)
+    .def("Base64Decode", &CDMBase64::Base64Decode)
+    .def("hex2bin", &CDMBase64::hex2bin)
+    .def("bin2hex", &CDMBase64::bin2hex);
 
 }

@@ -27,6 +27,7 @@
 class CDMBase64
 {
 public:
+    // export_begin
     CDMBase64();
     virtual ~CDMBase64();
 
@@ -34,6 +35,7 @@ public:
     std::string Base64Decode(const std::string& s);
     std::string hex2bin(const std::string& s);
     std::string bin2hex(const std::string& s);
+    // export_end  
 };
 
 
