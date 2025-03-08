@@ -16,16 +16,30 @@ SET(DMCONFIG_VERSION "${DMCONFIG_VERSION_MAJOR}.${DMCONFIG_VERSION_MINOR}.${DMCO
 
 MESSAGE(STATUS "VERSION: ${DMCONFIG_VERSION}")
 
+# python bitset.h dmflex.common bitset.h
 SET(PYTHON_VERSION 3.10)
+# On Windows, find_package is searched in sequence according to the PATH path. You can prefix 3.10
+# pybind11 2.9.1 requires Python 3.10
+find_package(Python ${PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
-find_package(PythonInterp ${PYTHON_VERSION} REQUIRED)
-find_package(PythonLibs ${PYTHON_VERSION} REQUIRED)
-find_package(Python ${PYTHON_VERSION} REQUIRED OPTIONAL_COMPONENTS NumPy)
+if (NOT Python_FOUND)
+    message(FATAL_ERROR "Python ${PYTHON_VERSION} not found! Please make sure Python is installed and available.")
+else()
+    message(STATUS "Python ${PYTHON_VERSION} found!")
+    message(STATUS "Python executable: ${Python_EXECUTABLE}")
+    message(STATUS "Python include directories: ${PYTHON_INCLUDE_DIRS}")
+    message(STATUS "Python library directories: ${Python_LIBRARY_DIRS}")
+    message(STATUS "Python version set to: ${PYBIND11_PYTHON_VERSION}")
 
-if (PYTHONLIBS_FOUND)
     include_directories(${PYTHON_INCLUDE_DIRS})
-    LINK_DIRECTORIES(${PYTHON_INCLUDE_DIRS}/../libs)
+    LINK_DIRECTORIES(${Python_LIBRARY_DIRS})
+    SET(PYBIND11_PYTHON_VERSION ${PYTHON_VERSION})
+    mark_as_advanced(PYBIND11_PYTHON_VERSION)
+    # static lib
+    #add_compile_definitions(Py_NO_ENABLE_SHARED Py_STATIC)
+
 endif ()
+
 ModuleInclude("dmformat" "thirdparty/dmformat")
 
 ModuleImport("dmpybind11" "thirdparty/dmpybind11")
