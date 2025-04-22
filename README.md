@@ -43,8 +43,8 @@ print(base64_decode)
 
 output
 ```
-皹=钄改
-hello world
+b'\xa2f\xb0\x98=\xe8\x94\x18\xb8\xc4\x8c'
+b'hello world'
 5EB63BBBE01EEED093CB22BB8F5ACDC3
 aGVsbG8gd29ybGQ=
 hello world
