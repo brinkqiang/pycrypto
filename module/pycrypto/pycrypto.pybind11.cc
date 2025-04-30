@@ -14,6 +14,8 @@
 
 #include "dmbase64.h"
 
+#include "dmaes.h"
+
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -23,21 +25,31 @@ PYBIND11_MODULE(pycrypto, m) {
 
     pybind11::class_<CDMRC>(m, "CDMRC")
     .def(pybind11::init<>())
-    .def("SetKey", &CDMRC::SetKey)
-    .def("SetEncryptKey", &CDMRC::SetEncryptKey)
-    .def("SetDecryptKey", &CDMRC::SetDecryptKey)
-    .def("Encrypt", &CDMRC::Encrypt)
-    .def("Decrypt", &CDMRC::Decrypt);
+    .def("SetKey", &CDMRC::SetKey, pybind11::return_value_policy::automatic_reference)
+    .def("SetEncryptKey", &CDMRC::SetEncryptKey, pybind11::return_value_policy::automatic_reference)
+    .def("SetDecryptKey", &CDMRC::SetDecryptKey, pybind11::return_value_policy::automatic_reference)
+    .def("Encrypt", &CDMRC::Encrypt, pybind11::return_value_policy::automatic_reference)
+    .def("Decrypt", &CDMRC::Decrypt, pybind11::return_value_policy::automatic_reference);
 
     pybind11::class_<CDMMD5>(m, "CDMMD5")
     .def(pybind11::init<>())
-    .def("GetMD5", &CDMMD5::GetMD5);
+    .def("GetMD5", &CDMMD5::GetMD5, pybind11::return_value_policy::automatic_reference);
 
     pybind11::class_<CDMBase64>(m, "CDMBase64")
     .def(pybind11::init<>())
-    .def("Base64Encode", &CDMBase64::Base64Encode)
-    .def("Base64Decode", &CDMBase64::Base64Decode)
-    .def("hex2bin", &CDMBase64::hex2bin)
-    .def("bin2hex", &CDMBase64::bin2hex);
+    .def("Base64Encode", &CDMBase64::Base64Encode, pybind11::return_value_policy::automatic_reference)
+    .def("Base64Decode", &CDMBase64::Base64Decode, pybind11::return_value_policy::automatic_reference)
+    .def("hex2bin", &CDMBase64::hex2bin, pybind11::return_value_policy::automatic_reference)
+    .def("bin2hex", &CDMBase64::bin2hex, pybind11::return_value_policy::automatic_reference);
+
+    pybind11::class_<CDMAES>(m, "CDMAES")
+    .def(pybind11::init<>())
+    .def(pybind11::init<const AESKeyLength>())
+    .def("EncodeECB", &CDMAES::EncodeECB, pybind11::return_value_policy::automatic_reference)
+    .def("DecodeECB", &CDMAES::DecodeECB, pybind11::return_value_policy::automatic_reference)
+    .def("EncodeCBC", &CDMAES::EncodeCBC, pybind11::return_value_policy::automatic_reference)
+    .def("DecodeCBC", &CDMAES::DecodeCBC, pybind11::return_value_policy::automatic_reference)
+    .def("EncodeCFB", &CDMAES::EncodeCFB, pybind11::return_value_policy::automatic_reference)
+    .def("DecodeCFB", &CDMAES::DecodeCFB, pybind11::return_value_policy::automatic_reference);
 
 }

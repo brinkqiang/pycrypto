@@ -3,6 +3,7 @@
 #define __DMCRC_H_INCLUDE__
 
 #include <stddef.h>
+#include <string>
 #include "dmtypes.h"
 
 class CDMCRC;

@@ -22,6 +22,28 @@ CDMAES::CDMAES(const AESKeyLength keyLength) {
     blockBytesLen = 4 * this->Nb * sizeof(unsigned char);
 }
 
+CDMAES::CDMAES()
+{
+    AESKeyLength keyLength = AESKeyLength::AES_256;
+    this->Nb = 4;
+    switch (keyLength) {
+    case AESKeyLength::AES_128:
+        this->Nk = 4;
+        this->Nr = 10;
+        break;
+    case AESKeyLength::AES_192:
+        this->Nk = 6;
+        this->Nr = 12;
+        break;
+    case AESKeyLength::AES_256:
+        this->Nk = 8;
+        this->Nr = 14;
+        break;
+    }
+
+    blockBytesLen = 4 * this->Nb * sizeof(unsigned char);
+}
+
 CDMAES::~CDMAES()
 {
 
@@ -43,14 +65,14 @@ unsigned char* CDMAES::EncryptECB(const unsigned char in[], unsigned int inLen,
 }
 
 
-std::string CDMAES::EncryptECB(std::string in, std::string key)
+pybind11::bytes CDMAES::EncodeECB(std::string in, std::string key)
 {
     unsigned char* out = EncryptECB((unsigned char*)in.data(), in.size(), (unsigned char*)key.data());
 
     std::string strRet((char*)out, in.size());
     delete[] out;
 
-    return strRet;
+    return pybind11::bytes(strRet);
 }
 
 unsigned char* CDMAES::DecryptECB(const unsigned char in[], unsigned int inLen,
@@ -69,14 +91,14 @@ unsigned char* CDMAES::DecryptECB(const unsigned char in[], unsigned int inLen,
 }
 
 
-std::string CDMAES::DecryptECB(std::string in, std::string key)
+pybind11::bytes CDMAES::DecodeECB(std::string in, std::string key)
 {
     unsigned char* out = DecryptECB((unsigned char*)in.data(), in.size(), (unsigned char*)key.data());
 
     std::string strRet((char*)out, in.size());
     delete[] out;
 
-    return strRet;
+    return pybind11::bytes(strRet);
 }
 
 unsigned char* CDMAES::EncryptCBC(const unsigned char in[], unsigned int inLen,
@@ -101,13 +123,13 @@ unsigned char* CDMAES::EncryptCBC(const unsigned char in[], unsigned int inLen,
 }
 
 
-std::string CDMAES::EncryptCBC(std::string in, std::string key, std::string iv)
+pybind11::bytes CDMAES::EncodeCBC(std::string in, std::string key, std::string iv)
 {
     unsigned char* out = EncryptCBC((unsigned char*)(in.data()), in.size(),
         (unsigned char*)key.data(), (unsigned char*)iv.data());
     std::string ret((char*)out, in.size());
     delete[] out;
-    return ret;
+    return pybind11::bytes(ret);
 }
 
 unsigned char* CDMAES::DecryptCBC(const unsigned char in[], unsigned int inLen,
@@ -131,14 +153,13 @@ unsigned char* CDMAES::DecryptCBC(const unsigned char in[], unsigned int inLen,
     return out;
 }
 
-
-std::string CDMAES::DecryptCBC(std::string in, std::string key, std::string iv)
+pybind11::bytes CDMAES::DecodeCBC(std::string in, std::string key, std::string iv)
 {
     unsigned char* out = DecryptCBC((unsigned char*)in.data(), (unsigned int)in.size(),
         (unsigned char*)key.data(), (unsigned char*)iv.data());
     std::string ret((char*)out, in.size());
     delete[] out;
-    return ret;
+    return pybind11::bytes(ret);
 }
 
 unsigned char* CDMAES::EncryptCFB(const unsigned char in[], unsigned int inLen,
@@ -165,13 +186,13 @@ unsigned char* CDMAES::EncryptCFB(const unsigned char in[], unsigned int inLen,
 }
 
 
-std::string CDMAES::EncryptCFB(std::string in, std::string key, std::string iv)
+pybind11::bytes CDMAES::EncodeCFB(std::string in, std::string key, std::string iv)
 {
     unsigned char* out = EncryptCFB((unsigned char*)in.data(), (unsigned int)in.size(),
         (unsigned char*)key.data(), (unsigned char*)iv.data());
     std::string ret((char*)out, in.size());
     delete[] out;
-    return ret;
+    return pybind11::bytes(ret);
 }
 
 unsigned char* CDMAES::DecryptCFB(const unsigned char in[], unsigned int inLen,
@@ -198,13 +219,13 @@ unsigned char* CDMAES::DecryptCFB(const unsigned char in[], unsigned int inLen,
 }
 
 
-std::string CDMAES::DecryptCFB(std::string in, std::string key, std::string iv)
+pybind11::bytes CDMAES::DecodeCFB(std::string in, std::string key, std::string iv)
 {
     unsigned char* out = DecryptCFB((unsigned char*)(in.data()), (unsigned int)in.size(),
         (unsigned char*)(key.data()), (unsigned char*)(iv.data()));
     std::string ret((char*)out, in.size());
     delete[] out;
-    return ret;
+    return pybind11::bytes(ret);
 }
 
 void CDMAES::CheckLength(unsigned int len) {
