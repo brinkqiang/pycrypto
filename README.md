@@ -79,7 +79,9 @@ aes_cfb -> b'hello world12345'
 ## Thanks
 
 ## TODO list
-1. ## implicitly_convertible 
+1. ## implicitly_convertible
+```
 pybind11::implicitly_convertible<pybind11::bytes, std::string>();
-pybind11::implicitly_convertible<std::string, pybind11::bytes>();
 
+pybind11::implicitly_convertible<std::string, pybind11::bytes>();
+```
