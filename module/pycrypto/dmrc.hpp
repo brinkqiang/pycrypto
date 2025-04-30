@@ -95,13 +95,11 @@ public:
         return pBuf;
     }
 
-
     unsigned char* Decryptcu(unsigned char* pBuf, size_t len)
     {
         arc4_crypt(&m_oDecryptContext, len, pBuf, pBuf);
         return pBuf;
     }
-
 
 private:
     std::string m_strEncryptKey;
