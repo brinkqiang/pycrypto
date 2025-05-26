@@ -25,17 +25,18 @@ iv = "hello world"
 key = "hello world"
 
 aes_encode = aes.EncodeECB(plain, key)
-
-print(f"aes_ecb -> {aes_encode}")
-
+print(f"aes_ecb_encode -> {aes_encode}") # Added a more descriptive print
 aes_decode = aes.DecodeECB(aes_encode, key)
-
-print(f"aes_ecb -> {aes_decode}")
+print(f"aes_ecb_decode -> {aes_decode}") # Added a more descriptive print
 
 aes_encode2 = aes.EncodeCFB(plain, key, iv)
-
-print(f"aes_cfb -> {aes_encode2}")
-
+print(f"aes_cfb_encode -> {aes_encode2}") # Added a more descriptive print
 aes_decode2 = aes.DecodeCFB(aes_encode2, key, iv)
+print(f"aes_cfb_decode -> {aes_decode2}") # Added a more descriptive print
 
-print(f"aes_cfb -> {aes_decode2}")
+# Added CBC Example
+aes_encode_cbc = aes.EncodeCBC(plain, key, iv)
+print(f"aes_cbc_encode -> {aes_encode_cbc}")
+
+aes_decode_cbc = aes.DecodeCBC(aes_encode_cbc, key, iv)
+print(f"aes_cbc_decode -> {aes_decode_cbc}")
